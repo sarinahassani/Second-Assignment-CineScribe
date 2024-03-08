@@ -37,7 +37,8 @@ Sarina Hassani.
 
 ## License
 
-
+ https://omdbapi.com (for Movie) 
+ and https://api-ninjas.com/api/celebrity (for actor)
 
 ## Acknowledgments
 
