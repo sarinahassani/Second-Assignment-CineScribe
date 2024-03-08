@@ -1,3 +1,6 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,14 +23,25 @@ public class Main {
         if (n == 1) {
             System.out.println("Enter the name of the movie");
             String name = scanner.next();
-            Movie movie = new Movie(new ArrayList<>(), "", 0, "", "", "", "");
-            System.out.println(movie.getImdbVotesViaApi((movie.getMovieData(name))));
-            System.out.println(movie.getRatingViaApi((movie.getMovieData(name))));
-            System.out.println(movie.getDirector(movie.getMovieData(name)));
-            System.out.println(movie.getWriter(movie.getMovieData(name)));
-            System.out.println(movie.getActorListViaApi(movie.getMovieData(name)));
-            System.out.println(movie.getGener(movie.getMovieData(name)));
-            System.out.println(movie.getLanguage(movie.getMovieData(name)));
+            Movie movie = new Movie(new ArrayList<>(), "", 0, "", "", "", "", "");
+            String found = movie.getResponsive(movie.getMovieData(name));
+            while (true) {
+                if (found == "false") {
+                    System.out.println("Movie not found, pleas try again!");
+                    name = scanner.next();
+                    found = movie.getResponsive(movie.getMovieData(name));
+                }
+                if (found == "true") {
+                    System.out.println(movie.getImdbVotesViaApi((movie.getMovieData(name))));
+                    System.out.println(movie.getRatingViaApi((movie.getMovieData(name))));
+                    System.out.println(movie.getDirector(movie.getMovieData(name)));
+                    System.out.println(movie.getWriter(movie.getMovieData(name)));
+                    System.out.println(movie.getActorListViaApi(movie.getMovieData(name)));
+                    System.out.println(movie.getGener(movie.getMovieData(name)));
+                    System.out.println(movie.getLanguage(movie.getMovieData(name)));
+                    break;
+                }
+            }
         }
         if (n == 2) {
             System.out.println("Enter the name of the actor/actress");
@@ -38,6 +52,7 @@ public class Main {
             System.out.println(actors.getGender(actors.getActorData(name)));
             System.out.println(actors.getNationality(actors.getActorData(name)));
             System.out.println(actors.getDateOfDeathViaApi(actors.getActorData(name)));
+            System.out.println(actors.getBirthday(actors.getActorData(name)));
         }
     }
 }

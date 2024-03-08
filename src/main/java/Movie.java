@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie {
-    public static final String API_KEY = "96ae8e2d";   // TODO --> add your api key about Movie here
+    public static final String API_KEY = "4cc68bea";   // TODO --> add your api key about Movie here
     int ImdbVotes;
     ArrayList<String> actorsList;
     String rating;
@@ -18,8 +18,9 @@ public class Movie {
     String gener;
     String writer;
     String language;
+    String responsive;
 
-    public Movie(ArrayList<String> actorsList, String rating, int ImdbVotes, String director, String gener, String writer, String language){
+    public Movie(ArrayList<String> actorsList, String rating, int ImdbVotes, String director, String gener, String writer, String language, String responsive){
         //TODO --> (Write a proper constructor using the get_from_api functions)
         this.actorsList = actorsList;
         this.rating = rating;
@@ -28,6 +29,7 @@ public class Movie {
         this.gener = gener;
         this.writer = writer;
         this.language = language;
+        this.responsive = responsive;
     }
 
     @SuppressWarnings("deprecation")
@@ -39,9 +41,9 @@ public class Movie {
      */
 
     public String getMovieData(String title) throws IOException {
-        URL url = new URL("https://www.omdbapi.com/?t="+title+"&apikey="+"96ae8e2d");
+        URL url = new URL("https://www.omdbapi.com/?t="+title+"&apikey="+ API_KEY);
         URLConnection Url = url.openConnection();
-        Url.setRequestProperty("Authorization", "Key" + "96ae8e2d");
+        Url.setRequestProperty("Authorization", "Key" + API_KEY);
         BufferedReader reader = new BufferedReader(new InputStreamReader(Url.getInputStream()));
         String line;
         StringBuilder stringBuilder = new StringBuilder();
@@ -109,5 +111,11 @@ public class Movie {
         JSONObject info = new JSONObject(movieInfoJson);
         language = info.getString("Language");
          return language;
+    }
+    public String getResponsive(String movieInfoJson){
+        String responsive = null;
+        JSONObject info = new JSONObject(movieInfoJson);
+        responsive = info.getString("Responsive");
+        return responsive;
     }
 }
